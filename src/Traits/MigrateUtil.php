@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Traits;
+namespace Simplon\PhinxProxy\Traits;
 
 use Phinx\Db\Adapter\MysqlAdapter;
 use Phinx\Db\Table;
 
 /**
- * @package App\Traits
+ * @package Simplon\PhinxProxy\Traits
  */
 class MigrateUtil
 {
