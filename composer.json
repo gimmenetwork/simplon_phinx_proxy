@@ -1,5 +1,10 @@
 {
+  "name": "simplon/phinx_proxy",
+  "description": "Phinx Proxy with utils",
+  "homepage": "https://github.com/fightbulc/simplon_phinx_proxy",
+  "type": "library",
   "require": {
+    "php": ">=7.1",
     "robmorgan/phinx": "^0.8"
   },
   "autoload": {
