@@ -31,6 +31,18 @@ class MigrateUtil
      */
     public static function addMetaJsonAwareColumns(Table $table, bool $nullable = true, string $columnName = 'meta_json'): Table
     {
+        return $table->addColumn($columnName, 'json', ['null' => $nullable]);
+    }
+
+    /**
+     * @param Table $table
+     * @param bool $nullable
+     * @param string $columnName
+     *
+     * @return Table
+     */
+    public static function addMetaJsonAwareTextColumns(Table $table, bool $nullable = true, string $columnName = 'meta_json'): Table
+    {
         return $table->addColumn($columnName, 'text', ['null' => $nullable]);
     }
 
