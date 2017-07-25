@@ -2,6 +2,7 @@
 
 namespace Simplon\PhinxProxy\Traits;
 
+use Phinx\Db\Adapter\AdapterInterface;
 use Phinx\Db\Adapter\MysqlAdapter;
 use Phinx\Db\Table;
 
@@ -32,6 +33,28 @@ class MigrateUtil
     public static function addMetaJsonAwareColumns(Table $table, bool $nullable = true, string $columnName = 'meta_json'): Table
     {
         return $table->addColumn($columnName, 'json', ['null' => $nullable]);
+    }
+
+    /**
+     * @param AdapterInterface $adapter
+     * @param Table $table
+     * @param string $jsonColumnName
+     * @param string $jsonQuery
+     * @param string $columnName
+     * @param string $mysqlNativeType
+     * @param array $additionalColumnsToIndex
+     */
+    public static function addJsonIndexColumn(AdapterInterface $adapter, Table $table, string $jsonColumnName, string $jsonQuery, string $columnName, string $mysqlNativeType, array $additionalColumnsToIndex = []): void
+    {
+        /** @noinspection SqlDialectInspection */
+        /** @noinspection SqlNoDataSourceInspection */
+        $adapter->execute('ALTER TABLE ' . $table->getName() . ' ADD ' . $columnName . ' ' . $mysqlNativeType . ' AS (JSON_UNQUOTE(' . $jsonColumnName . '->"' . $jsonQuery . '")) AFTER `' . $jsonColumnName . '`');
+
+        array_unshift($additionalColumnsToIndex, $columnName);
+
+        /** @noinspection SqlDialectInspection */
+        /** @noinspection SqlNoDataSourceInspection */
+        $adapter->execute('ALTER TABLE ' . $table->getName() . ' ADD INDEX (' . implode(',', $additionalColumnsToIndex) . ')');
     }
 
     /**
