@@ -1,6 +1,6 @@
 {
-  "name": "simplon/phinx_proxy",
-  "description": "Phinx Proxy with utils",
+  "name": "gimmenetwork/simplon_phinx_proxy",
+  "description": "[FORK] Phinx Proxy with utils",
   "homepage": "https://github.com/fightbulc/simplon_phinx_proxy",
   "type": "library",
   "require": {
